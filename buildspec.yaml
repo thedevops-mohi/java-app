@@ -28,7 +28,7 @@ phases:
       - mvn clean package
       - echo Building the Docker image...
       - docker build -t $ECR_REPOSITORY_NAME:$IMAGE_TAG .
-      - docker tag $ECR_REPOSITORY_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/ECR_REPOSITORY_NAME:IMAGE_TAG
+      - docker tag $ECR_REPOSITORY_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
