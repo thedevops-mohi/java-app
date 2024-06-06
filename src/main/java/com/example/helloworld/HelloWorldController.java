@@ -12,7 +12,7 @@ public class HelloWorldController {
     @GetMapping("/")
     public String helloWorld() {
         String hostAddress = getHostAddress();
-        return "<html><body style='color:blue;'><h1>Hello, World!</h1><p>Your host IP address is: " + hostAddress + "</p></body></html>";
+        return "<html><body style='color:blue;'><h1>Hello, Mohi!</h1><p>Your host IP address is: " + hostAddress + "</p></body></html>";
     }
 
     private String getHostAddress() {
