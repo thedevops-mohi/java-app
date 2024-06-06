@@ -11,7 +11,7 @@ phases:
   install:
     runtime-versions:
       java: corretto11
-      docker: 19
+      #docker: 19
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
