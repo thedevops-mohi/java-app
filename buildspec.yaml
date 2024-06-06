@@ -1,0 +1,39 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_REGION: "ca-central-1"
+    AWS_ACCOUNT_ID: "686995104880"
+    ECR_REPOSITORY_NAME: "codepipeline"
+    IMAGE_TAG: "latest"
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+      docker: 19
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com)
+  pre_build:
+    commands:
+      - echo Build started on `date`
+      - echo Preparing to build the Maven project...
+      - mvn --version
+      - mvn dependency:go-offline -B
+  build:
+    commands:
+      - echo Building the Maven project...
+      - mvn clean package
+      - echo Building the Docker image...
+      - docker build -t $ECR_REPOSITORY_NAME:$IMAGE_TAG .
+      - docker tag $ECR_REPOSITORY_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.AWS_REGION.amazonaws.com/ECR_REPOSITORY_NAME:IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image to ECR...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:$IMAGE_TAG
+artifacts:
+  files:
+    - target/helloworld-0.0.1-SNAPSHOT.jar
