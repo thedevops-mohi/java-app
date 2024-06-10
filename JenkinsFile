@@ -9,7 +9,7 @@ pipeline {
         GIT_REPO = 'https://github.com/thedevops-mohi/java-app.git'
         BRANCH_NAME = 'main'
         SONARQUBE_SERVER = 'http://192.168.0.25:9000'
-        SONARQUBE_TOKEN = credentials('sqa_733754167d645fd95988e31b3883481206498a6e')
+        SONARQUBE_TOKEN = credentials('sonarqube-token')
         DOCKER_HUB_REPO = ' auwalu5/mohi-java'
         DOCKER_HUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIALS')
         DOCKER_IMAGE_TAG = 'latest'
