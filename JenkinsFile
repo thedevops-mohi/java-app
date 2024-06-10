@@ -12,6 +12,8 @@ pipeline {
         SONARQUBE_TOKEN = credentials('sonarqube-token')
         DOCKER_HUB_REPO = 'auwalu5/java_app'
         DOCKER_HUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIALS')
+        DOCKER_HUB_PASSWORD = credentials('DOCKER_HUB_PASSWORD')
+        DOCKER_HUB_USERNAME = credentials('DOCKER_HUB_USERNAME')
         DOCKER_IMAGE_TAG = 'latest'
     }
     stages {
@@ -42,7 +44,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh "echo ${DOCKER_HUB_CREDENTIALS} | docker login -u ${DOCKER_HUB_CREDENTIALS} --password-stdin"
+                    sh "echo ${DOCKER_HUB_PASSWORD} | docker login -u ${DOCKER_HUB_USERNAME} --password-stdin"
                     sh "docker push ${DOCKER_HUB_REPO}:${DOCKER_IMAGE_TAG}"
                     }
                 }
