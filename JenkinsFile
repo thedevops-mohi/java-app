@@ -42,8 +42,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('', "${DOCKER_HUB_CREDENTIALS}") {
-                        dockerImage.push()
+                    sh "echo ${DOCKER_HUB_CREDENTIALS} | docker login -u ${DOCKER_HUB_CREDENTIALS} --password-stdin"
+                    sh "docker push ${DOCKER_HUB_REPO}:${DOCKER_IMAGE_TAG}"
                     }
                 }
             }
