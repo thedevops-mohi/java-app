@@ -42,7 +42,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Login DockerHUB') {
             steps {
                 script {
                    // Log in to Docker Hub
