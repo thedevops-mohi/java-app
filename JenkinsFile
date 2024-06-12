@@ -32,33 +32,31 @@ pipeline {
         //         }
         //     }
         // }
-
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image
-                    sh "docker build -t ${DOCKER_HUB_REPO}:${DOCKER_IMAGE_TAG} ."
+                   def dockerImage = docker.build("${DOCKER_HUB_REPO}:${DOCKER_IMAGE_TAG}")
                 }
             }
         }
 
-        stage('Login DockerHUB') {
+       stage('Push Docker Image') {
             steps {
                 script {
-                   // Log in to Docker Hub
+                    // Log in to Docker Hub
                     withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_CREDENTIALS', usernameVariable: 'dockerhub_username', passwordVariable: 'dockerhub_password')]) {
                         sh 'echo $dockerhub_password | docker login -u $dockerhub_username --password-stdin'
-                }
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                script {
-                   sh "docker push ${DOCKER_HUB_REPO}:${DOCKER_IMAGE_TAG}"
                     }
+
+                    // Push the Docker image to Docker Hub
+                    sh "docker push ${DOCKER_HUB_REPO}:${DOCKER_IMAGE_TAG}"
                 }
             }
         }
+
+
+
+
     }
     post {
         always {
