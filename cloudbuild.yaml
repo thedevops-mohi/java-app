@@ -57,7 +57,7 @@ steps:
       - |
         export MAVEN_HOME=/usr/local/apache-maven
         export PATH=$MAVEN_HOME/bin:$PATH
-        cd $REPO_NAME
+        cd java-app
         mvn install
         mvn package
 
