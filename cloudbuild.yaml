@@ -40,5 +40,5 @@ substitutions:
 
 # Only trigger this build on the 'prod' branch
 # Adjust this section according to how you set up your triggers
-trigger:
-  branch: 'prod'
+# trigger:
+#   branch: 'prod'
