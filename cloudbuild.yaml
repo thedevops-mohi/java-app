@@ -13,7 +13,7 @@ steps:
   # Step 2: Checkout the code
   - name: 'gcr.io/cloud-builders/git'
     entrypoint: 'git'
-    args: ['clone', 'https://source.developers.google.com/p/$PROJECT_ID/r/$REPO_NAME', '.']
+    args: ['clone', 'https://github.com/thedevops-mohi/java-app', '.']
 
   # Step 3: Set up JDK
   - name: 'gcr.io/cloud-builders/mvn'
@@ -34,9 +34,9 @@ steps:
 images:
   - 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
 
-substitutions:
-  _REPO_NAME: thedevops-mohi/java-app'
-  _PROJECT_ID: 'curious-domain-372904'
+# substitutions:
+#   _REPO_NAME: thedevops-mohi/java-app'
+#   _PROJECT_ID: 'curious-domain-372904'
 
 # Only trigger this build on the 'prod' branch
 # Adjust this section according to how you set up your triggers
