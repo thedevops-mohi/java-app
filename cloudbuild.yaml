@@ -22,13 +22,44 @@ steps:
       - '-c'
       - 'cd java-app'
 
-  # Step 3: Set up JDK
-  - name: 'gcr.io/cloud-builders/mvn'
-    args: ['mvn', 'install']
-  
-  # Step 4: Build the Java application
-  - name: 'gcr.io/cloud-builders/mvn'
-    args: ['mvn', 'package']
+    # Step 4: Install Apache Maven 3.9.7
+  - name: 'gcr.io/cloud-builders/curl'
+    args:
+      - '-L'
+      - 'https://downloads.apache.org/maven/maven-3/3.9.7/binaries/apache-maven-3.9.7-bin.tar.gz'
+      - '-o'
+      - 'apache-maven-3.9.7-bin.tar.gz'
+  - name: 'gcr.io/cloud-builders/tar'
+    args:
+      - 'xvzf'
+      - 'apache-maven-3.9.7-bin.tar.gz'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'mv apache-maven-3.9.7 /usr/local/apache-maven'
+
+  # Step 5: Set up environment to use Apache Maven 3.9.7
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        export MAVEN_HOME=/usr/local/apache-maven
+        export PATH=$MAVEN_HOME/bin:$PATH
+        mvn --version
+
+  # Step 6: Build the Java application
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        export MAVEN_HOME=/usr/local/apache-maven
+        export PATH=$MAVEN_HOME/bin:$PATH
+        cd $REPO_NAME
+        mvn install
+        mvn package
 
   # Step 5: Build the Docker image using Dockerfile
   - name: 'gcr.io/cloud-builders/docker'
