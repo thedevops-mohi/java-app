@@ -39,7 +39,7 @@ images:
   - 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
 
 substitutions:
-  _REPO_NAME: java-app'
+  _REPO_NAME: java-application'
   _PROJECT_ID: 'curious-domain-372904'
 
 # Only trigger this build on the 'prod' branch
