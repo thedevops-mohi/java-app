@@ -34,9 +34,9 @@ steps:
 images:
   - 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
 
-# substitutions:
-#   _REPO_NAME: thedevops-mohi/java-app'
-#   _PROJECT_ID: 'curious-domain-372904'
+substitutions:
+  _REPO_NAME: thedevops-mohi/java-app'
+  _PROJECT_ID: 'curious-domain-372904'
 
 # Only trigger this build on the 'prod' branch
 # Adjust this section according to how you set up your triggers
