@@ -15,17 +15,20 @@ steps:
     entrypoint: 'git'
     args: ['clone', 'https://github.com/thedevops-mohi/java-app.git']
 
-  #   # Step 3: Set up JDK
-  # - name: 'Change Directory'
-  #   args: ['cd', 'java-app']
+  # Step 3: Change to the cloned directory
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args: 
+      - '-c'
+      - 'cd java-app'
 
-  # # Step 3: Set up JDK
-  # - name: 'gcr.io/cloud-builders/mvn'
-  #   args: ['mvn', 'install']
+  # Step 3: Set up JDK
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['mvn', 'install']
   
-  # # Step 4: Build the Java application
-  # - name: 'gcr.io/cloud-builders/mvn'
-  #   args: ['mvn', 'package']
+  # Step 4: Build the Java application
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['mvn', 'package']
 
   # Step 5: Build the Docker image using Dockerfile
   - name: 'gcr.io/cloud-builders/docker'
