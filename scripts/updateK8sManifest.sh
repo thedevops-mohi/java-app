@@ -6,10 +6,10 @@ set -x
 REPO_URL="https://$GITHUB_TOKEN@github.com/thedevops-mohi/java-app.git"
 
 # Clone the git repository into the /tmp directory
-git clone "$REPO_URL" /tmp/temp_repo
+git clone "$REPO_URL" /home/jenkins/repo
 
 # Navigate into the cloned repository directory
-cd /tmp/temp_repo
+cd /home/jenkins/repo
 
 # Make changes to the Kubernetes manifest file(s)
 # For example, let's say you want to change the image tag in a deployment.yaml file
@@ -25,4 +25,4 @@ git commit -m "Update Kubernetes manifest"
 git push -u origin  --all 
 
 # Cleanup: remove the temporary directory
-rm -rf /tmp/temp_repo
+rm -rf /home/jenkins/repo/*
