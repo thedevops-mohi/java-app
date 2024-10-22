@@ -15,6 +15,8 @@ cd /home/jenkins/repo
 # For example, let's say you want to change the image tag in a deployment.yaml file
 sed -i "s|image:.*|image: auwalu5/java_app:$2|g" k8s-yamls/$1-deployment.yaml
 
+git status
+
 # Add the modified filess
 git add .
 
