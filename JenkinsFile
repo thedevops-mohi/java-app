@@ -46,7 +46,7 @@ pipeline {
                 script {
                     // Log in to Docker Hub
                     withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_CREDENTIALS', usernameVariable: 'username', passwordVariable: 'password')]) {
-                        sh 'echo $dockerhub_password | docker login -u $dockerhub_username --password-stdin'
+                        sh 'echo $password | docker login -u $username --password-stdin'
                     }
 
                     // Push the Docker image to Docker Hub
